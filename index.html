@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub AFO - @pauloaudit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --executive-blue: #0f172a;
+            --space-blue: #1e293b;
+            --law-gold: #eab308;
+            --spotify-green: #1DB954;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Fundo Responsivo */
+        .bg-custom-photo {
+            background-image: linear-gradient(to right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1920&q=90');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; 
+        }
+        @media (min-width: 1024px) {
+            .bg-custom-photo { background-attachment: fixed; }
+        }
+
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+        @keyframes subtle-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(234, 179, 8, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0); }
+        }
+        .btn-download-pulse:hover {
+            animation: subtle-pulse 1.5s infinite;
+            background-color: #facc15;
+            transform: scale(1.02);
+        }
+
+        /* Estilo Netflix Melhorado */
+        .netflix-container {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0 40px 0;
+            gap: 1.5rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .netflix-card {
+            min-width: 220px;
+            height: 320px;
+            scroll-snap-align: start;
+            background-color: #111;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        @media (min-width: 768px) {
+            .netflix-card { min-width: 260px; height: 380px; }
+            .netflix-card:hover { transform: scale(1.08); z-index: 10; border-color: var(--law-gold); }
+        }
+        .netflix-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.2) 100%);
+            z-index: 1;
+        }
+        .netflix-content {
+            position: relative;
+            z-index: 2;
+        }
+        .rank-number-bg {
+            position: absolute;
+            bottom: 5%;
+            right: -5px;
+            font-size: 9rem;
+            font-weight: 900;
+            color: rgba(234, 179, 8, 0.15);
+            line-height: 0.7;
+            z-index: 0;
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+            pointer-events: none;
+            letter-spacing: -12px;
+        }
+        .approval-badge {
+            background: var(--law-gold);
+            color: black;
+            font-weight: 900;
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Modernização da Parte de Materiais */
+        .subject-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .subject-card:hover {
+            background: linear-gradient(145deg, rgba(234, 179, 8, 0.1), rgba(15, 23, 42, 0.8));
+            border-color: rgba(234, 179, 8, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+        .btn-spotify-premium {
+            background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+            transition: all 0.3s ease;
+        }
+
+        .img-card-header {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+        @media (min-width: 768px) { .img-card-header { height: 240px; } }
+    </style>
+</head>
+<body class="bg-custom-photo">
+
+    <!-- Barra de Navegação -->
+    <nav class="fixed top-0 w-full z-[100] bg-[#0f172a]/95 backdrop-blur-md border-b border-slate-800 py-3 md:py-4 px-4 md:px-12 flex justify-between items-center">
+        <div class="flex items-center gap-2 md:gap-3">
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-yellow-500 rounded-lg flex items-center justify-center font-bold text-black text-lg md:text-xl">A</div>
+            <span class="font-bold text-base md:text-xl tracking-tight uppercase text-white">Hub<span class="text-yellow-500 italic">Paulo</span>Audit</span>
+        </div>
+        <div class="flex gap-4 md:gap-8 text-[10px] md:text-xs font-semibold uppercase tracking-widest text-slate-400">
+            <a href="#trajetoria" class="hover:text-yellow-500 transition-colors hidden sm:block text-white font-bold">História</a>
+            <a href="https://cbl.link/3JmZcvy" target="_blank" class="hover:text-yellow-500 transition-colors text-center text-yellow-500 font-bold">Mentoria</a>
+            <a href="#downloads" class="hover:text-yellow-500 transition-colors text-center text-white font-bold">Materiais</a>
+        </div>
+    </nav>
+
+    <!-- Header Principal -->
+    <header id="inicio" class="relative pt-32 md:pt-48 pb-20 md:pb-32 px-6">
+        <div class="max-w-6xl mx-auto relative z-10 text-center lg:text-left lg:ml-10 xl:ml-20">
+            <div class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-[10px] md:text-xs font-bold mb-4 md:mb-6 tracking-widest uppercase">
+                Auditoria e Controlo Externo
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-[1.1] uppercase">
+                DE AUDITOR PARA <br class="hidden sm:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">FUTURO AUDITOR</span>
+            </h1>
+            <p class="text-sm md:text-xl lg:text-2xl text-slate-300 max-w-2xl leading-relaxed mb-8 md:mb-10 font-light italic text-center lg:text-left">
+                Tenho mais de 15 anos como concurseiro e sei os atalhos para sua posse. Aprenda com quem domina o campo de batalha.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <a href="#trajetoria" class="bg-white text-black px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold uppercase text-[10px] md:text-sm tracking-widest transition-all text-center">Minha História</a>
+                <a href="https://cbl.link/3JmZcvy" target="_blank" class="btn-download-pulse bg-yellow-500 text-black px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold uppercase text-[10px] md:text-sm tracking-widest transition-all text-center">Mentoria Elite</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEÇÃO: Trajetória -->
+    <section id="trajetoria" class="py-12 md:py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-10 md:gap-16 items-start">
+                <div class="relative group max-w-md mx-auto lg:max-w-none">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-3xl blur opacity-20"></div>
+                    <img src="https://lh3.googleusercontent.com/d/1LIk4YTqXOu47FvzOtluoOYrCyYlj2XJY" alt="Paulo Benedito" class="relative rounded-3xl w-full object-cover shadow-2xl grayscale hover:grayscale-0 transition duration-700">
+                    <div class="absolute bottom-4 left-4 right-4 p-4 md:p-6 glass-panel rounded-2xl border border-yellow-500/20">
+                        <h4 class="text-white font-bold text-sm md:text-lg mb-1">Paulo Benedito Jesus Santos</h4>
+                        <p class="text-slate-300 text-[9px] md:text-[11px] leading-tight font-medium uppercase tracking-wider">
+                            Concurseiro há 15+ anos, Auditor, Professor, Contador e em TI.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 md:space-y-8 text-center lg:text-left">
+                    <div>
+                        <h2 class="text-xs font-black text-yellow-500 uppercase tracking-[0.3em] mb-3">A Jornada do Auditor</h2>
+                        <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-6 md:mb-8 tracking-tighter uppercase leading-tight">De Recém-Formado a <br><span class="text-yellow-500">Auditor aos 23 anos</span></h3>
+                        <div class="space-y-4 md:space-y-6 text-slate-400 leading-relaxed text-base md:text-lg font-light text-center lg:text-left">
+                            <p>Logo após sair da faculdade, enfrentei o desafio que muitos de vocês vivem hoje: a incerteza e a falta de direcionamento na área de concursos. Sem um guia, precisei decifrar a lógica das bancas sozinho.</p>
+                            <p>Aos 23 anos, o esforço materializou-se na primeira aprovação como Auditor. Hoje, acumulando 15 anos de experiência e múltiplas conquistas, uno contabilidade à tecnologia para acelerar a sua aprovação.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAINEL VITÓRIAS COM IMAGENS ESPECÍFICAS -->
+            <div class="mt-20 md:mt-32">
+                <div class="flex items-end justify-between mb-8 border-b border-slate-800 pb-4 px-2">
+                    <div>
+                        <h3 class="text-white font-black text-xl md:text-4xl uppercase tracking-tighter italic">Painel de Vitórias</h3>
+                        <p class="text-slate-500 text-[9px] md:text-xs uppercase tracking-widest mt-1 italic">Conquistas reais de um mentor que sabe o caminho</p>
+                    </div>
+                    <span class="text-law-gold text-[9px] md:text-[10px] uppercase font-bold tracking-widest animate-pulse">← Deslize para ver →</span>
+                </div>
+                
+                <div class="netflix-container -mx-2 px-2">
+                    <!-- Cards de Vitórias (Netflix Style) -->
+                    <!-- Camaçari - Prédio governamental moderno -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg">07</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge">7º Lugar</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">Auditor Interno</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">Camaçari - BA</p>
+                        </div>
+                    </div>
+
+                    <!-- Montes Claros - Tributos/Receita -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg">24</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge">24º Lugar</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">Auditor Tributos</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">Montes Claros - MG</p>
+                        </div>
+                    </div>
+
+                    <!-- João Pessoa - Controle/Auditoria -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg">38</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge">38º Lugar</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">Controle Interno</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">João Pessoa - PB</p>
+                        </div>
+                    </div>
+
+                    <!-- Câmara Recife - Salão Parlamentar -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1555848962-6e79363ec58f?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg">REC</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge" style="background:#16a34a; color:white;">Aprovado</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">Consultor Legis.</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">Câmara de Recife - PE</p>
+                        </div>
+                    </div>
+
+                    <!-- Salvador - Fiscal/Inspeção -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg">20</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge">20º Lugar</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">Fiscal Serviços</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">Salvador - BA</p>
+                        </div>
+                    </div>
+
+                    <!-- PRF - Distintivo Policial -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1589578527966-fdac0f44566c?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg" style="font-size:4.5rem">PRF</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge" style="background:#2563eb; color:white;">Aprovado</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">PRF</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">Polícia Rodoviária</p>
+                        </div>
+                    </div>
+
+                    <!-- SEC BA - Educação Profissional Bahia -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg">12</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge">12º Lugar</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">Prof. Ed. Profissional</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">Sec. Educação - BA</p>
+                        </div>
+                    </div>
+
+                    <!-- SEDUC SE - Educador Profissional Sergipe -->
+                    <div class="netflix-card" style="background-image: url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop');">
+                        <div class="rank-number-bg">03</div>
+                        <div class="netflix-content text-center">
+                            <div class="approval-badge">3º Lugar</div>
+                            <h4 class="text-white font-black text-lg md:text-xl uppercase leading-tight mb-1">Educador Profissional</h4>
+                            <p class="text-slate-300 text-[10px] font-bold uppercase tracking-tighter italic">Sec. Educação - SE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentoria -->
+    <section id="mentoria" class="py-16 md:py-24 px-6 bg-slate-900/40">
+        <div class="max-w-5xl mx-auto">
+            <div class="glass-panel p-8 md:p-16 rounded-[30px] md:rounded-[40px] border border-yellow-500/30 relative overflow-hidden group">
+                <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                    <div class="flex-grow text-center md:text-left">
+                        <h2 class="text-[10px] md:text-xs font-black text-yellow-500 uppercase tracking-[0.4em] mb-4">Aceleração Estratégica</h2>
+                        <h3 class="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 tracking-tighter uppercase leading-none">Treino Tático</h3>
+                        <p class="text-sm md:text-lg text-slate-400 mb-8 md:mb-10 max-w-xl">Aprenda a técnica que me permitiu ser Auditor aos 23 anos. Suporte direto e focado em converter estudo em nomeação.</p>
+                        <a href="https://cbl.link/3JmZcvy" target="_blank" class="inline-flex items-center gap-4 bg-white text-black px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-yellow-500 transition-all">
+                            Quero Mentoria Individual
+                        </a>
+                    </div>
+                    <div class="shrink-0 flex items-center justify-center">
+                        <div class="p-6 md:p-8 rounded-full border-2 border-yellow-500/20 bg-yellow-500/5 text-center w-32 h-32 md:w-48 md:h-48 flex flex-col justify-center">
+                            <span class="block text-2xl md:text-4xl font-black text-yellow-500">15+</span>
+                            <span class="text-[7px] md:text-[9px] text-slate-500 uppercase font-bold tracking-widest leading-tight text-center">Anos de<br>Prática</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO: MATERIAL DE ELITE (MODERNIZADA E AMPLIADA) -->
+    <section id="downloads" class="py-16 md:py-24 px-6 bg-[#020617]/90 relative overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="mb-12 md:mb-20 text-center">
+                <span class="text-law-gold text-[10px] font-black uppercase tracking-[0.5em] block mb-4">Central de Inteligência</span>
+                <h2 class="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tighter italic">Material de Elite</h2>
+                <p class="text-sm md:text-lg text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                    Acesso direto ao repositório tático. Selecione o pilar da sua aprovação e domine a técnica.
+                </p>
+            </div>
+
+            <!-- Grelha de Disciplinas (9 Disciplinas) -->
+            <div id="disciplines-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                
+                <!-- AFO -->
+                <div onclick="showCategory('afo')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-yellow-500/10 rounded-2xl flex items-center justify-center mb-6 transition-all group-hover:scale-110 group-hover:bg-yellow-500/20">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-white uppercase tracking-widest mb-2">AFO</h3>
+                    <span class="text-[8px] md:text-[10px] text-yellow-500 font-bold uppercase tracking-widest px-3 py-1 bg-yellow-500/5 rounded-full border border-yellow-500/20">Material Disponível</span>
+                </div>
+
+                <!-- Direito Administrativo -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-10V4m0 10V4m-4 18V12a1 1 0 011-1h2a1 1 0 011 1v10"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2 leading-tight">Direito Administrativo</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+
+                <!-- Controle Externo -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2">Controle Externo</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+
+                <!-- Português -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2">Português</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+
+                <!-- Raciocínio Lógico -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2 leading-tight">RAC Lógico</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+
+                <!-- Contabilidade Geral -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2 leading-tight">Contabilidade Geral</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+
+                <!-- Contabilidade Pública -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2 leading-tight">Contabilidade Pública</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+
+                <!-- Direito Constitucional -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2 leading-tight">Direito Constitucional</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+
+                <!-- Auditoria -->
+                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6 transition-all">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2">Auditoria</h3>
+                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
+                </div>
+            </div>
+
+            <!-- Conteúdo AFO (Painel Interno Detalhado) -->
+            <div id="content-afo" class="hidden mt-12 md:mt-20">
+                <div class="flex items-center gap-6 mb-10 md:mb-16">
+                    <button onclick="hideCategories()" class="bg-yellow-500/10 hover:bg-yellow-500 text-yellow-500 hover:text-black w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 border border-yellow-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <div>
+                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter">Diretrizes de AFO Técnica</h3>
+                        <p class="text-slate-500 text-xs md:text-sm uppercase tracking-widest font-bold">Módulo Ativo</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+                    <!-- Aula 01 -->
+                    <div class="glass-panel rounded-[32px] overflow-hidden flex flex-col group border-white/5 hover:border-yellow-500/30 transition-all duration-500">
+                        <img src="https://lh3.googleusercontent.com/d/12bxteqRXsTwD9PkCOredfGxDaqvWbBw-" alt="Aula 01" class="img-card-header transition-transform duration-700 group-hover:scale-105" onerror="this.src='AULA 01.svg'">
+                        <div class="p-8 md:p-10 flex flex-col gap-5 text-center">
+                            <h3 class="text-lg md:text-2xl font-black text-white uppercase leading-tight">Aula 01 - Princípios Orçamentários</h3>
+                            <div class="space-y-4">
+                                <a href="https://drive.google.com/file/d/1STILm0DF92PwK9SeTtCOKMcBm87fF9yG/view?usp=sharing" target="_blank" class="bg-yellow-500 text-black py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all hover:brightness-110 block text-center">Download Guia PDF</a>
+                                <a href="https://open.spotify.com/episode/7c1KCYbffgy90W0viiGg4K?si=YgSH2PUtTq6etHIdFem8Lw" target="_blank" class="btn-spotify-premium text-white py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.492 17.305c-.215.353-.673.465-1.027.248-2.853-1.742-6.445-2.138-10.675-1.173-.404.092-.813-.158-.905-.562-.093-.404.159-.814.562-.906 4.637-1.06 8.604-.613 11.797 1.336.353.216.465.674.248 1.027zm1.465-3.266c-.27.439-.845.58-1.285.31-3.262-2.003-8.235-2.585-12.091-1.414-.495.15-.495.15-.495.15-.544-.165-.843-.734-.678-1.278.166-.544.734-.843 1.278-.678 4.41 1.339 9.897.689 13.614 2.973.44.27.58.845.31 1.285zm.127-3.415c-3.913-2.324-10.364-2.54-14.135-1.394-.599.182-1.237-.161-1.419-.76-.182-.599.161-1.237.76-1.419 4.331-1.314 11.448-1.055 15.955 1.62.538.319.716 1.01.397 1.549-.319.539-1.01.717-1.549.398z"/></svg>
+                                    Audio Aula no Spotify
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Aula 02 -->
+                    <div class="glass-panel rounded-[32px] overflow-hidden flex flex-col group border-white/5 hover:border-yellow-500/30 transition-all duration-500">
+                        <img src="https://lh3.googleusercontent.com/d/12bxteqRXsTwD9PkCOredfGxDaqvWbBw-" alt="Aula 02" class="img-card-header transition-transform duration-700 group-hover:scale-105" onerror="this.src='AULA 01 (1).svg'">
+                        <div class="p-8 md:p-10 flex flex-col gap-5 text-center">
+                            <h3 class="text-lg md:text-2xl font-black text-white uppercase leading-tight">Aula 02 - Instrumentos Planeamento</h3>
+                            <div class="space-y-4">
+                                <a href="https://drive.google.com/file/d/1nEtYVeDtESvMRnMyKxoPV1xMm5RZiwaG/view?usp=sharing" target="_blank" class="bg-yellow-500 text-black py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all hover:brightness-110 block text-center">Download Material PDF</a>
+                                <a href="https://open.spotify.com/episode/03Y5iMtbo6uc8DiXwftUp5?si=-CRmAY93Rkm4cYzyZgJMWA" target="_blank" class="btn-spotify-premium text-white py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.492 17.305c-.215.353-.673.465-1.027.248-2.853-1.742-6.445-2.138-10.675-1.173-.404.092-.813-.158-.905-.562-.093-.404.159-.814.562-.906 4.637-1.06 8.604-.613 11.797 1.336.353.216.465.674.248 1.027zm1.465-3.266c-.27.439-.845.58-1.285.31-3.262-2.003-8.235-2.585-12.091-1.414-.495.15-.495.15-.495.15-.544-.165-.843-.734-.678-1.278.166-.544.734-.843 1.278-.678 4.41 1.339 9.897.689 13.614 2.973.44.27.58.845.31 1.285zm.127-3.415c-3.913-2.324-10.364-2.54-14.135-1.394-.599.182-1.237-.161-1.419-.76-.182-.599.161-1.237.76-1.419 4.331-1.314 11.448-1.055 15.955 1.62.538.319.716 1.01.397 1.549-.319.539-1.01.717-1.549.398z"/></svg>
+                                    Ouvir Aula Spotify
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conteúdo Default (Em breve) -->
+            <div id="content-default" class="hidden text-center py-20 md:py-32 glass-panel rounded-[40px] mt-12 border-dashed border-2 border-white/10">
+                <button onclick="hideCategories()" class="mb-10 text-yellow-500 font-black uppercase text-xs tracking-widest bg-yellow-500/5 px-6 py-2 rounded-full border border-yellow-500/20 transition-all hover:bg-yellow-500 hover:text-black">← Voltar às Disciplinas</button>
+                <div class="max-w-md mx-auto">
+                    <h3 class="text-3xl font-black text-white mb-4 uppercase tracking-tighter italic">Módulo em Desenvolvimento</h3>
+                    <p class="text-slate-500 text-sm md:text-base leading-relaxed">Este material tático está a ser curado pelo Auditor Paulo Benedito e estará disponível em breve com o padrão de excelência do hub.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-12 md:py-16 border-t border-slate-800 text-center bg-[#0f172a]/80 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <span class="text-xl md:text-2xl font-black text-white tracking-widest uppercase mb-2 block italic leading-none">PAULOAUDIT</span>
+            <p class="text-slate-400 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em] mb-8">Mentoria , Planejamento , Aprovação</p>
+            <div class="h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent w-full mb-6"></div>
+            <p class="text-slate-600 text-[8px] md:text-[10px] uppercase font-medium">© 2026 Plataforma @pauloaudit. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showCategory(cat) {
+            document.getElementById('disciplines-grid').classList.add('hidden');
+            document.getElementById('content-afo').classList.add('hidden');
+            document.getElementById('content-default').classList.add('hidden');
+            
+            if(cat === 'afo') {
+                document.getElementById('content-afo').classList.remove('hidden');
+            } else {
+                document.getElementById('content-default').classList.remove('hidden');
+            }
+            
+            // Scroll suave para o início da seção
+            document.getElementById('downloads').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideCategories() {
+            document.getElementById('disciplines-grid').classList.remove('hidden');
+            document.getElementById('content-afo').classList.add('hidden');
+            document.getElementById('content-default').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
