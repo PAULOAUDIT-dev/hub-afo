@@ -3,7 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hub AFO - @pauloaudit</title>
+    <title>Hub PauloAudit — De Auditor para Futuro Auditor</title>
+    <!-- SEO & Compartilhamento -->
+    <meta name="description" content="Mentoria especializada em AFO e concursos públicos. Aprenda com Paulo Benedito, Auditor aos 24 anos e 15+ anos de experiência. Do estudo à posse.">
+    <meta name="keywords" content="mentoria concurso público, AFO, auditoria, aprovação concurso, Paulo Audit, estudo concurso">
+    <meta name="author" content="Paulo Benedito Jesus Santos - @pauloaudit">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pauloaudit-dev.github.io/hub-afo">
+    <meta property="og:title" content="Hub PauloAudit — De Auditor para Futuro Auditor">
+    <meta property="og:description" content="Fui aprovado Auditor aos 24 anos. Conheço cada desvio, cada armadilha e cada atalho do caminho. Vou guiar cada passo seu até a posse.">
+    <meta property="og:image" content="https://lh3.googleusercontent.com/d/1LIk4YTqXOu47FvzOtluoOYrCyYlj2XJY">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Hub PauloAudit">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hub PauloAudit — De Auditor para Futuro Auditor">
+    <meta name="twitter:description" content="Fui aprovado Auditor aos 24 anos. Conheço cada desvio, cada armadilha e cada atalho do caminho. Vou guiar cada passo seu até a posse.">
+    <meta name="twitter:image" content="https://lh3.googleusercontent.com/d/1LIk4YTqXOu47FvzOtluoOYrCyYlj2XJY">
+
+    <!-- Favicon dourado -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23eab308'/><text y='.9em' font-size='75' font-family='Arial Black' font-weight='900' fill='black' x='15'>A</text></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -72,7 +98,7 @@
             border-radius: 12px;
             position: relative;
             flex-shrink: 0;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1); border: 2px solid transparent;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -82,7 +108,7 @@
         }
         @media (min-width: 768px) {
             .netflix-card { min-width: 260px; height: 380px; }
-            .netflix-card:hover { transform: scale(1.08); z-index: 10; border-color: var(--law-gold); }
+            .netflix-card:hover { transform: scale(1.1); z-index: 10; border-color: #eab308 !important; border-width: 2px !important; box-shadow: 0 0 40px rgba(234,179,8,0.7), 0 0 80px rgba(234,179,8,0.3); filter: brightness(1.25); }
         }
         .netflix-card::before {
             content: "";
@@ -145,9 +171,95 @@
             width: 100%;
         }
         @media (min-width: 768px) { .img-card-header { height: 240px; } }
+
+        /* Animações de entrada */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-up-delay-1 { transition-delay: 0.15s; }
+        .fade-up-delay-2 { transition-delay: 0.3s; }
+        .fade-up-delay-3 { transition-delay: 0.45s; }
+
+        /* Botão WhatsApp flutuante */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 9999;
+            width: 62px;
+            height: 62px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+            transition: all 0.3s ease;
+            animation: wpp-pulse 2s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.7); }
+        /* Realce hover cards arsenal */
+        .netflix-card:hover .w-12 {
+            background: rgba(234,179,8,0.5) !important;
+            border-color: #eab308 !important;
+            transform: scale(1.15);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(234,179,8,0.6);
+        }
+        /* Overlay dourado ao hover */
+        .netflix-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            background: linear-gradient(to top, rgba(234,179,8,0.18) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .netflix-card:hover::after {
+            opacity: 1;
+        }
+        @keyframes wpp-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+            70% { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+        }
+
+
+        /* Barra de progresso */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(to right, #eab308, #facc15, #eab308);
+            z-index: 9999;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 10px rgba(234,179,8,0.8);
+        }
+        /* Partículas canvas */
+        #particles-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        header .max-w-6xl { position: relative; z-index: 2; }
     </style>
 </head>
 <body class="bg-custom-photo">
+    <!-- Barra de Progresso -->
+    <div id="progress-bar"></div>
 
     <!-- Barra de Navegação -->
     <nav class="fixed top-0 w-full z-[100] bg-[#0f172a]/95 backdrop-blur-md border-b border-slate-800 py-3 md:py-4 px-4 md:px-12 flex justify-between items-center">
@@ -164,6 +276,7 @@
 
     <!-- Header Principal -->
     <header id="inicio" class="relative pt-32 md:pt-48 pb-20 md:pb-32 px-6">
+    <canvas id="particles-canvas"></canvas>
         <div class="max-w-6xl mx-auto relative z-10 text-center lg:text-left lg:ml-10 xl:ml-20">
             <div class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-[10px] md:text-xs font-bold mb-4 md:mb-6 tracking-widest uppercase">
                 Auditoria e Controlo Externo
@@ -181,8 +294,28 @@
         </div>
     </header>
 
+
+    <!-- SEÇÃO: Números de Impacto -->
+    <section class="py-10 md:py-16 px-6 bg-[#0a0f1e]/80 border-y border-slate-800/60">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-2 gap-6 md:gap-16 text-center max-w-lg mx-auto">
+                <div class="fade-up fade-up-delay-1 group">
+                    <div class="text-4xl md:text-6xl font-black text-yellow-500 tracking-tighter leading-none" data-target="8">8+</div>
+                    <div class="h-0.5 w-10 bg-yellow-500/40 mx-auto my-3 group-hover:w-20 transition-all duration-500"></div>
+                    <p class="text-slate-400 text-[10px] md:text-xs uppercase font-bold tracking-widest leading-tight">Aprovações<br>Comprovadas</p>
+                </div>
+                <div class="fade-up fade-up-delay-2 group">
+                    <div class="text-4xl md:text-6xl font-black text-yellow-500 tracking-tighter leading-none" data-target="15">15+</div>
+                    <div class="h-0.5 w-10 bg-yellow-500/40 mx-auto my-3 group-hover:w-20 transition-all duration-500"></div>
+                    <p class="text-slate-400 text-[10px] md:text-xs uppercase font-bold tracking-widest leading-tight">Anos de<br>Experiência</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- SEÇÃO: Trajetória -->
-    <section id="trajetoria" class="py-12 md:py-24 px-6">
+    <section id="trajetoria" class="fade-up" class="py-12 md:py-24 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-10 md:gap-16 items-start">
                 <div class="relative group max-w-md mx-auto lg:max-w-none">
@@ -199,17 +332,17 @@
                 <div class="space-y-6 md:space-y-8 text-center lg:text-left">
                     <div>
                         <h2 class="text-xs font-black text-yellow-500 uppercase tracking-[0.3em] mb-3">A Jornada do Auditor</h2>
-                        <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-6 md:mb-8 tracking-tighter uppercase leading-tight">De Recém-Formado a <br><span class="text-yellow-500">Auditor aos 23 anos</span></h3>
+                        <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-6 md:mb-8 tracking-tighter uppercase leading-tight">De Recém-Formado a <br><span class="text-yellow-500">Auditor aos 24 anos</span></h3>
                         <div class="space-y-4 md:space-y-6 text-slate-400 leading-relaxed text-base md:text-lg font-light text-center lg:text-left">
                             <p>Logo após sair da faculdade, enfrentei o desafio que muitos de vocês vivem hoje: a incerteza e a falta de direcionamento na área de concursos. Sem um guia, precisei decifrar a lógica das bancas sozinho.</p>
-                            <p>Aos 23 anos, o esforço materializou-se na primeira aprovação como Auditor. Hoje, acumulando 15 anos de experiência e múltiplas conquistas, uno contabilidade à tecnologia para acelerar a sua aprovação.</p>
+                            <p>Aos 24 anos, o esforço materializou-se na primeira aprovação como Auditor. Hoje, acumulando 15 anos de experiência e múltiplas conquistas, Conheço cada desvio, cada armadilha e cada atalho do caminho — e vou guiar cada passo seu até a posse.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- PAINEL VITÓRIAS COM IMAGENS ESPECÍFICAS -->
-            <div class="mt-20 md:mt-32">
+            <div class="mt-20 md:mt-32 fade-up">
                 <div class="flex items-end justify-between mb-8 border-b border-slate-800 pb-4 px-2">
                     <div>
                         <h3 class="text-white font-black text-xl md:text-4xl uppercase tracking-tighter italic">Painel de Vitórias</h3>
@@ -412,21 +545,21 @@
     </section>
 
     <!-- Mentoria -->
-    <section id="mentoria" class="py-16 md:py-24 px-6 bg-slate-900/40">
+    <section id="mentoria" class="fade-up" class="py-16 md:py-24 px-6 bg-slate-900/40">
         <div class="max-w-5xl mx-auto">
             <div class="glass-panel p-8 md:p-16 rounded-[30px] md:rounded-[40px] border border-yellow-500/30 relative overflow-hidden group">
                 <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
                     <div class="flex-grow text-center md:text-left">
                         <h2 class="text-[10px] md:text-xs font-black text-yellow-500 uppercase tracking-[0.4em] mb-4">Aceleração Estratégica</h2>
                         <h3 class="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 tracking-tighter uppercase leading-none">Treino Tático</h3>
-                        <p class="text-sm md:text-lg text-slate-400 mb-8 md:mb-10 max-w-xl">Aprenda a técnica que me permitiu ser Auditor aos 23 anos. Suporte direto e focado em converter estudo em nomeação.</p>
+                        <p class="text-sm md:text-lg text-slate-400 mb-8 md:mb-10 max-w-xl">Aprenda a técnica que me permitiu ser Auditor aos 24 anos. Suporte direto e focado em converter estudo em nomeação.</p>
                         <a href="https://wa.link/fkas9d" target="_blank" class="inline-flex items-center gap-4 bg-white text-black px-8 md:px-10 py-4 md:py-5 rounded-2xl font-black uppercase text-[10px] md:text-xs tracking-widest hover:bg-yellow-500 transition-all">
                             Quero Mentoria Individual
                         </a>
                     </div>
                     <div class="shrink-0 flex items-center justify-center">
                         <div class="p-6 md:p-8 rounded-full border-2 border-yellow-500/20 bg-yellow-500/5 text-center w-32 h-32 md:w-48 md:h-48 flex flex-col justify-center">
-                            <span class="block text-2xl md:text-4xl font-black text-yellow-500">15+</span>
+                            <span class="block text-2xl md:text-4xl font-black text-yellow-500" data-target="15">15+</span>
                             <span class="text-[7px] md:text-[9px] text-slate-500 uppercase font-bold tracking-widest leading-tight text-center">Anos de<br>Prática</span>
                         </div>
                     </div>
@@ -436,7 +569,7 @@
     </section>
 
     <!-- SEÇÃO: MATERIAL DE ELITE (MODERNIZADA E AMPLIADA) -->
-    <section id="downloads" class="py-16 md:py-24 px-6 bg-[#020617]/90 relative overflow-hidden">
+    <section id="downloads" class="fade-up" class="py-16 md:py-24 px-6 bg-[#020617]/90 relative overflow-hidden">
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500/5 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
@@ -599,6 +732,107 @@
         </div>
     </footer>
 
+
+    <script>
+
+        // ========== BARRA DE PROGRESSO ==========
+        const progressBar = document.getElementById('progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+        });
+
+        // ========== PARTÍCULAS DOURADAS ==========
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = -Math.random() * 0.5 - 0.2;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                this.life = 0;
+                this.maxLife = Math.random() * 200 + 100;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life++;
+                if (this.life > this.maxLife) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity * (1 - this.life / this.maxLife);
+                ctx.fillStyle = '#eab308';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ========== ANIMAÇÕES DE ENTRADA ==========
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ========== CONTADOR ANIMADO ==========
+        function animateCounter(el, target, duration = 1800) {
+            let start = 0;
+            const step = target / (duration / 16);
+            const update = () => {
+                start += step;
+                if (start >= target) {
+                    el.textContent = target + '+';
+                    return;
+                }
+                el.textContent = Math.floor(start) + '+';
+                requestAnimationFrame(update);
+            };
+            update();
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.counted) {
+                    entry.target.dataset.counted = true;
+                    const target = parseInt(entry.target.dataset.target);
+                    animateCounter(entry.target, target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+    </script>
     <script>
         function showCategory(cat) {
             document.getElementById('disciplines-grid').classList.add('hidden');
@@ -621,5 +855,12 @@
             document.getElementById('content-default').classList.add('hidden');
         }
     </script>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.link/fkas9d" target="_blank" rel="noopener" class="whatsapp-float" title="Falar no WhatsApp">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+    </a>
 </body>
 </html>
