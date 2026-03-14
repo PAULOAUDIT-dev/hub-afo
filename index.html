@@ -172,6 +172,46 @@
         }
         @media (min-width: 768px) { .img-card-header { height: 240px; } }
 
+
+        /* Cursor dourado personalizado */
+        *, *::before, *::after { cursor: none !important; }
+        #custom-cursor {
+            width: 12px; height: 12px;
+            background: #eab308;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+            mix-blend-mode: difference;
+        }
+        #cursor-trail {
+            width: 32px; height: 32px;
+            border: 1.5px solid rgba(234,179,8,0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: left 0.12s ease, top 0.12s ease;
+        }
+        a:hover ~ #custom-cursor, button:hover ~ #custom-cursor { width: 20px; height: 20px; }
+
+        /* Gradiente animado no título */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-gradient {
+            background: linear-gradient(270deg, #eab308, #facc15, #fbbf24, #f59e0b, #eab308);
+            background-size: 300% 300%;
+            animation: gradient-shift 4s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         /* Animações de entrada */
         .fade-up {
             opacity: 0;
@@ -260,6 +300,10 @@
 <body class="bg-custom-photo">
     <!-- Barra de Progresso -->
     <div id="progress-bar"></div>
+    <!-- Cursor personalizado -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-trail"></div>
+
 
     <!-- Barra de Navegação -->
     <nav class="fixed top-0 w-full z-[100] bg-[#0f172a]/95 backdrop-blur-md border-b border-slate-800 py-3 md:py-4 px-4 md:px-12 flex justify-between items-center">
@@ -272,6 +316,10 @@
             <a href="https://wa.link/fkas9d" target="_blank" class="hover:text-yellow-500 transition-colors text-center text-yellow-500 font-bold">Mentoria</a>
             <a href="https://forms.gle/ghAMYsGKTpfvAmTk9" target="_blank" class="hover:text-yellow-500 transition-colors text-center text-slate-400 font-bold hidden sm:block">Formulário</a>
             <a href="#downloads" class="hover:text-yellow-500 transition-colors text-center text-white font-bold">Materiais</a>
+            <a href="https://wa.link/fkas9d" target="_blank" rel="noopener" title="Falar no WhatsApp"
+               class="flex items-center justify-center w-8 h-8 rounded-full bg-[#25D366]/20 hover:bg-[#25D366] transition-all duration-300 group">
+                <svg class="w-4 h-4 text-[#25D366] group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </a>
         </div>
     </nav>
 
@@ -283,7 +331,7 @@
                 Mentoria para área de Controle
             </div>
             <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-[1.1] uppercase">
-                DE AUDITOR PARA <br class="hidden sm:block"><span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">FUTURO AUDITOR</span>
+                DE AUDITOR PARA <br class="hidden sm:block"><span class="animated-gradient">FUTURO AUDITOR</span>
             </h1>
             <p class="text-sm md:text-xl lg:text-2xl text-slate-300 max-w-2xl leading-relaxed mb-8 md:mb-10 font-light italic text-center lg:text-left">
                 Tenho mais de 15 anos como concurseiro e sei os atalhos para sua posse. Aprenda com quem domina o campo de batalha.
@@ -295,6 +343,7 @@
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                     Formulário de Interesse
                 </a>
+
             </div>
         </div>
     </header>
@@ -338,9 +387,53 @@
                     <div>
                         <h2 class="text-xs font-black text-yellow-500 uppercase tracking-[0.3em] mb-3">A Jornada do Auditor</h2>
                         <h3 class="text-3xl md:text-5xl font-extrabold text-white mb-6 md:mb-8 tracking-tighter uppercase leading-tight">De Recém-Formado a <br><span class="text-yellow-500">Auditor aos 24 anos</span></h3>
-                        <div class="space-y-4 md:space-y-6 text-slate-400 leading-relaxed text-base md:text-lg font-light text-center lg:text-left">
-                            <p>Logo após sair da faculdade, enfrentei o desafio que muitos de vocês vivem hoje: a incerteza e a falta de direcionamento na área de concursos. Sem um guia, precisei decifrar a lógica das bancas sozinho.</p>
-                            <p>Aos 24 anos, o esforço materializou-se na primeira aprovação como Auditor. Hoje, acumulando 15 anos de experiência e múltiplas conquistas, Conheço cada desvio, cada armadilha e cada atalho do caminho — e vou guiar cada passo seu até a posse.</p>
+                        <!-- Timeline -->
+                        <div class="relative mt-6 space-y-0">
+                            <div class="absolute left-4 top-2 bottom-2 w-px bg-gradient-to-b from-yellow-500 via-yellow-500/40 to-transparent"></div>
+
+                            <div class="flex gap-6 pb-8 relative">
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 border-4 border-[#0f172a] flex items-center justify-center shrink-0 z-10">
+                                    <div class="w-2 h-2 rounded-full bg-black"></div>
+                                </div>
+                                <div>
+                                    <span class="text-yellow-500 text-[10px] font-black uppercase tracking-widest">Início</span>
+                                    <h4 class="text-white font-black text-base uppercase mt-1">Recém-Formado</h4>
+                                    <p class="text-slate-400 text-sm mt-1 leading-relaxed">Saí da faculdade sem direção. Sem guia, precisei decifrar a lógica das bancas sozinho.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-6 pb-8 relative">
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 border-4 border-[#0f172a] flex items-center justify-center shrink-0 z-10">
+                                    <div class="w-2 h-2 rounded-full bg-black"></div>
+                                </div>
+                                <div>
+                                    <span class="text-yellow-500 text-[10px] font-black uppercase tracking-widest">Virada</span>
+                                    <h4 class="text-white font-black text-base uppercase mt-1">Auditor aos 24 anos</h4>
+                                    <p class="text-slate-400 text-sm mt-1 leading-relaxed">O esforço se materializou. Primeira aprovação como Auditor — o método funcionou.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-6 pb-8 relative">
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 border-4 border-[#0f172a] flex items-center justify-center shrink-0 z-10">
+                                    <div class="w-2 h-2 rounded-full bg-black"></div>
+                                </div>
+                                <div>
+                                    <span class="text-yellow-500 text-[10px] font-black uppercase tracking-widest">Consolidação</span>
+                                    <h4 class="text-white font-black text-base uppercase mt-1">15+ Anos & 8 Aprovações</h4>
+                                    <p class="text-slate-400 text-sm mt-1 leading-relaxed">Múltiplas conquistas em estados diferentes. O caminho ficou claro — e replicável.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-6 relative">
+                                <div class="w-8 h-8 rounded-full bg-yellow-500 border-4 border-[#0f172a] flex items-center justify-center shrink-0 z-10 animate-pulse">
+                                    <div class="w-2 h-2 rounded-full bg-black"></div>
+                                </div>
+                                <div>
+                                    <span class="text-yellow-500 text-[10px] font-black uppercase tracking-widest">Hoje</span>
+                                    <h4 class="text-white font-black text-base uppercase mt-1">Mentor & Guia</h4>
+                                    <p class="text-slate-400 text-sm mt-1 leading-relaxed">Conheço cada desvio e cada atalho. Vou guiar cada passo seu até a posse.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -459,9 +552,9 @@
                             <div class="w-12 h-12 rounded-2xl bg-yellow-500/20 border border-yellow-500/30 flex items-center justify-center mb-3 mx-auto">
                                 <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                             </div>
-                            <div class="approval-badge">Personalizado</div>
-                            <h4 class="text-white font-black text-base uppercase leading-tight mb-1 mt-2">Cronograma</h4>
-                            <p class="text-slate-400 text-[10px] leading-snug">Metas diárias adaptadas à sua rotina</p>
+                            <div class="approval-badge">100% Individual</div>
+                            <h4 class="text-white font-black text-base uppercase leading-tight mb-1 mt-2">Cronograma Individualizado</h4>
+                            <p class="text-slate-400 text-[10px] leading-snug">Feito exclusivamente para <span style="color:#eab308;font-weight:700;">você</span> — sua rotina, seu ritmo, seu concurso</p>
                         </div>
                     </div>
 
@@ -546,6 +639,51 @@
                 </div>
             </div>
 
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO: Jornada em 3 Passos -->
+    <section class="py-16 md:py-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-yellow-500/3 to-transparent pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="text-center mb-12 fade-up">
+                <span class="text-yellow-500 text-[10px] font-black uppercase tracking-[0.5em] block mb-3">Simples assim</span>
+                <h2 class="text-3xl md:text-5xl font-black text-white uppercase tracking-tighter italic">Sua Jornada até a Posse</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 relative fade-up">
+                <!-- Linha conectora desktop -->
+                <div class="hidden md:block absolute top-12 left-[22%] right-[22%] h-px bg-gradient-to-r from-yellow-500/60 via-yellow-500 to-yellow-500/60 z-0"></div>
+
+                <!-- Passo 1 -->
+                <div class="glass-panel rounded-[24px] p-5 text-center border border-white/5 hover:border-yellow-500/30 transition-all duration-500 group hover:-translate-y-2 relative z-10">
+                    <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-500/30 group-hover:scale-110 transition-all">
+                        <span class="text-black font-black text-lg">1</span>
+                    </div>
+                    <h4 class="text-white font-black text-lg uppercase tracking-tight mb-3">Entre em Contato</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Preencha o formulário ou fale direto no WhatsApp. Vamos entender seu objetivo e concurso alvo.</p>
+                </div>
+
+                <!-- Passo 2 -->
+                <div class="glass-panel rounded-[24px] p-5 text-center border border-yellow-500/20 hover:border-yellow-500/50 transition-all duration-500 group hover:-translate-y-2 relative z-10">
+                    <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-500/30 group-hover:scale-110 transition-all">
+                        <span class="text-black font-black text-lg">2</span>
+                    </div>
+                    <div class="inline-block px-2 py-0.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 text-[8px] font-black uppercase tracking-widest mb-2">Plataforma PauloAudit</div>
+                    <h4 class="text-white font-black text-lg uppercase tracking-tight mb-3">Receba Seu Plano</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Tudo entregue na <span class="text-yellow-500 font-bold">Plataforma PauloAudit</span>: cronograma, PDFs, mapas mentais, áudio aulas e suporte contínuo.</p>
+                </div>
+
+                <!-- Passo 3 -->
+                <div class="glass-panel rounded-[24px] p-5 text-center border border-white/5 hover:border-yellow-500/30 transition-all duration-500 group hover:-translate-y-2 relative z-10">
+                    <div class="w-12 h-12 rounded-full bg-yellow-500 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-yellow-500/30 group-hover:scale-110 transition-all">
+                        <span class="text-black font-black text-lg">3</span>
+                    </div>
+                    <h4 class="text-white font-black text-lg uppercase tracking-tight mb-3">Seja Aprovado</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Execute o plano, domine as técnicas e chegue à posse com método comprovado por quem já percorreu o caminho.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -745,6 +883,34 @@
 
     <script>
 
+
+        // ========== CURSOR PERSONALIZADO ==========
+        const cursor = document.getElementById('custom-cursor');
+        const trail = document.getElementById('cursor-trail');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            setTimeout(() => {
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+            }, 80);
+        });
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.width = '20px';
+                cursor.style.height = '20px';
+                trail.style.width = '44px';
+                trail.style.height = '44px';
+                trail.style.borderColor = 'rgba(234,179,8,0.8)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.width = '12px';
+                cursor.style.height = '12px';
+                trail.style.width = '32px';
+                trail.style.height = '32px';
+                trail.style.borderColor = 'rgba(234,179,8,0.5)';
+            });
+        });
         // ========== BARRA DE PROGRESSO ==========
         const progressBar = document.getElementById('progress-bar');
         window.addEventListener('scroll', () => {
@@ -866,11 +1032,6 @@
         }
     </script>
 
-    <!-- Botão Flutuante WhatsApp -->
-    <a href="https://wa.link/fkas9d" target="_blank" rel="noopener" class="whatsapp-float" title="Falar no WhatsApp">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-        </svg>
-    </a>
+
 </body>
 </html>
