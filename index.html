@@ -729,6 +729,15 @@
                     <span class="text-[8px] md:text-[10px] text-yellow-500 font-bold uppercase tracking-widest px-3 py-1 bg-yellow-500/5 rounded-full border border-yellow-500/20">Material Disponível</span>
                 </div>
 
+                                <!-- Auditoria -->
+                <div onclick="showCategory('auditoria')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group">
+                    <div class="w-14 h-14 md:w-20 md:h-20 bg-yellow-500/10 rounded-2xl flex items-center justify-center mb-6 transition-all group-hover:scale-110 group-hover:bg-yellow-500/20">
+                        <svg class="w-7 h-7 md:w-10 md:h-10 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-sm md:text-2xl font-black text-white uppercase tracking-widest mb-2">Auditoria</h3>
+                    <span class="text-[8px] md:text-[10px] text-yellow-500 font-bold uppercase tracking-widest px-3 py-1 bg-yellow-500/5 rounded-full border border-yellow-500/20">Material Disponível</span>
+                </div>
+
                 <!-- Direito Administrativo -->
                 <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
                     <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6">
@@ -792,14 +801,7 @@
                     <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
                 </div>
 
-                <!-- Auditoria -->
-                <div onclick="showCategory('default')" class="subject-card p-6 md:p-10 rounded-[32px] flex flex-col items-center text-center cursor-pointer group opacity-60">
-                    <div class="w-14 h-14 md:w-20 md:h-20 bg-slate-800/40 rounded-2xl flex items-center justify-center mb-6 transition-all">
-                        <svg class="w-7 h-7 md:w-10 md:h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-sm md:text-2xl font-black text-slate-300 uppercase tracking-widest mb-2">Auditoria</h3>
-                    <span class="text-[8px] md:text-[10px] text-slate-500 font-bold uppercase tracking-widest">Em Breve</span>
-                </div>
+
             </div>
 
             <!-- Conteúdo AFO (Painel Interno Detalhado) -->
@@ -851,6 +853,37 @@
                             <div class="space-y-4">
                                 <a href="https://drive.google.com/file/d/1GkQSq4M7sCUVwPhW4mO0Kp4Hliw98pC2/view?usp=sharing" target="_blank" class="bg-yellow-500 text-black py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all hover:brightness-110 block text-center">Download Material PDF</a>
                                 <a href="https://open.spotify.com/episode/2Gwwlo4goQYQOK4TUe6it7?si=cnGg2wX8TduVsF6O8mU3kA" target="_blank" class="btn-spotify-premium text-white py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.492 17.305c-.215.353-.673.465-1.027.248-2.853-1.742-6.445-2.138-10.675-1.173-.404.092-.813-.158-.905-.562-.093-.404.159-.814.562-.906 4.637-1.06 8.604-.613 11.797 1.336.353.216.465.674.248 1.027zm1.465-3.266c-.27.439-.845.58-1.285.31-3.262-2.003-8.235-2.585-12.091-1.414-.495.15-.495.15-.495.15-.544-.165-.843-.734-.678-1.278.166-.544.734-.843 1.278-.678 4.41 1.339 9.897.689 13.614 2.973.44.27.58.845.31 1.285zm.127-3.415c-3.913-2.324-10.364-2.54-14.135-1.394-.599.182-1.237-.161-1.419-.76-.182-.599.161-1.237.76-1.419 4.331-1.314 11.448-1.055 15.955 1.62.538.319.716 1.01.397 1.549-.319.539-1.01.717-1.549.398z"/></svg>
+                                    Áudio Aula no Spotify
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Conteúdo Auditoria -->
+            <div id="content-auditoria" class="hidden mt-12 md:mt-20">
+                <div class="flex items-center gap-6 mb-10 md:mb-16">
+                    <button onclick="hideCategories()" class="bg-yellow-500/10 hover:bg-yellow-500 text-yellow-500 hover:text-black w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 border border-yellow-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <div>
+                        <h3 class="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter">Diretrizes de Auditoria</h3>
+                        <p class="text-slate-500 text-xs md:text-sm uppercase tracking-widest font-bold">Módulo Ativo</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-6xl mx-auto">
+                    <!-- Aula 01 Auditoria -->
+                    <div class="glass-panel rounded-[32px] overflow-hidden flex flex-col group border-white/5 hover:border-yellow-500/30 transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&q=80" alt="Aula 01 Auditoria" class="img-card-header transition-transform duration-700 group-hover:scale-105">
+                        <div class="p-8 md:p-10 flex flex-col gap-5 text-center">
+                            <h3 class="text-lg md:text-2xl font-black text-white uppercase leading-tight">Aula 01 - Introdução à Auditoria</h3>
+                            <div class="space-y-4">
+                                <a href="https://drive.google.com/file/d/1gxZQ7RIB3gEo-OlVurXxX4kxXmKo4Xnb/view?usp=sharing" target="_blank" class="bg-yellow-500 text-black py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] transition-all hover:brightness-110 block text-center">Download Material PDF</a>
+                                <a href="https://open.spotify.com/episode/2VOvse2BuUkgYXjp1P4vBr?si=TSrw8le_TDu2grYI-1iAQw" target="_blank" class="btn-spotify-premium text-white py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-[0.2em] flex items-center justify-center gap-3">
                                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.492 17.305c-.215.353-.673.465-1.027.248-2.853-1.742-6.445-2.138-10.675-1.173-.404.092-.813-.158-.905-.562-.093-.404.159-.814.562-.906 4.637-1.06 8.604-.613 11.797 1.336.353.216.465.674.248 1.027zm1.465-3.266c-.27.439-.845.58-1.285.31-3.262-2.003-8.235-2.585-12.091-1.414-.495.15-.495.15-.495.15-.544-.165-.843-.734-.678-1.278.166-.544.734-.843 1.278-.678 4.41 1.339 9.897.689 13.614 2.973.44.27.58.845.31 1.285zm.127-3.415c-3.913-2.324-10.364-2.54-14.135-1.394-.599.182-1.237-.161-1.419-.76-.182-.599.161-1.237.76-1.419 4.331-1.314 11.448-1.055 15.955 1.62.538.319.716 1.01.397 1.549-.319.539-1.01.717-1.549.398z"/></svg>
                                     Áudio Aula no Spotify
                                 </a>
@@ -1015,10 +1048,13 @@
         function showCategory(cat) {
             document.getElementById('disciplines-grid').classList.add('hidden');
             document.getElementById('content-afo').classList.add('hidden');
+            document.getElementById('content-auditoria').classList.add('hidden');
             document.getElementById('content-default').classList.add('hidden');
             
             if(cat === 'afo') {
                 document.getElementById('content-afo').classList.remove('hidden');
+            } else if(cat === 'auditoria') {
+                document.getElementById('content-auditoria').classList.remove('hidden');
             } else {
                 document.getElementById('content-default').classList.remove('hidden');
             }
@@ -1030,6 +1066,7 @@
         function hideCategories() {
             document.getElementById('disciplines-grid').classList.remove('hidden');
             document.getElementById('content-afo').classList.add('hidden');
+            document.getElementById('content-auditoria').classList.add('hidden');
             document.getElementById('content-default').classList.add('hidden');
         }
     </script>
